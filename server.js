@@ -17,19 +17,19 @@ app.get('/', async (req, res) => {
 io.on('connection', (socket) => {
   console.log('a user connected');
 
- 
+
 
   socket.on('click-photo', (roomid) => {
     console.log(roomid.toString());
     socket.join(roomid);
     socket.broadcast.to(roomid).emit('click-a-photo', roomid);
-    // io.emit('display-text', data.toString());
+
   });
   socket.on('display-image', (roomid) => {
-    console.log("display-image: "+roomid.toString());
+    console.log("display-image: " + roomid.toString());
     socket.join(roomid);
     socket.broadcast.to(roomid).emit('display-a-image', roomid);
-    // io.emit('display-text', data.toString());
+
   });
 
   socket.on('disconnect', () => {
@@ -45,9 +45,9 @@ io.on('connection', (socket) => {
   app.post('/trigger-event', (req, res) => {
     // Handle the API request from Postman or any other client
     // Process the request as needed
-  
+
     // Emit a socket.io event to all connected Flutter clients
-    io.emit('custom-event', { message: 'Event triggered' },console.log('custom-event'));
+    io.emit('custom-event', { message: 'Event triggered' }, console.log('custom-event'));
     res.send('Event triggered successfully');
   });
 });
